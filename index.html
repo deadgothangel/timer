@@ -6,116 +6,39 @@
     <title>DEADGOTHANGEL | PROJECT 222</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            background: #000; color: #fff;
-            font-family: 'Courier New', monospace;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            overflow: hidden;
-            text-transform: uppercase;
-        }
-
-        /* ТВОЕ ФОНОВОЕ ИЗОБРАЖЕНИЕ С БЛЮРОМ И БЕЗ РАСТЯГИВАНИЯ */
-        .background {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            /* Тут мы используем файл background.jpg */
-            background: url('background.jpg') center top no-repeat;
-            /* containment: keep aspect ratio */
-            background-size: contain; 
-            background-attachment: fixed; /* Фиксируем картинку */
-            /* Твой блюр 20% (это примерно 8px) */
-            filter: blur(8px);
-            /* Затемнение, чтобы текст читался */
-            opacity: 0.5;
-            z-index: -1;
-            transform: scale(1.1); /* Чтобы не было белых краев при скролле */
-        }
-
-        /* Бегущие строки */
-        .marquee {
-            position: absolute; width: 100%;
-            background: rgba(0,0,0,0.9);
-            border-top: 1px solid #222;
-            border-bottom: 1px solid #222;
-            padding: 10px 0; font-size: 14px; letter-spacing: 5px;
-            white-space: nowrap; overflow: hidden;
-            z-index: 100;
-        }
-        .top { top: 30px; }
-        .bottom { bottom: 30px; }
-
-        .marquee span {
-            display: inline-block;
-            animation: scroll 20s linear infinite;
-        }
-
-        @keyframes scroll {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-
-        /* Таймер */
-        .timer-container {
-            text-align: center;
-            z-index: 50;
-            background: rgba(0,0,0,0.5); /* Фон под таймером для читаемости */
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .label {
-            font-size: 14px;
-            letter-spacing: 4px;
-            margin-bottom: 15px;
-            text-decoration: underline;
-            opacity: 0.8;
-        }
-        #display {
-            font-size: 2.5rem; font-weight: bold;
-            display: flex; gap: 15px; justify-content: center;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-        }
-
-        .unit { font-size: 10px; margin-top: 5px; opacity: 0.6; letter-spacing: 2px; }
-
-        /* Информация о треке */
-        .audio-info {
-            position: fixed;
-            bottom: 80px;
-            left: 25px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            opacity: 0.5;
-            z-index: 10;
-        }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; text-transform: uppercase; }
         
-        /* Заглушка для включения звука */
-        #music-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            cursor: pointer;
-            font-size: 1rem;
-            letter-spacing: 3px;
-        }
+        /* Фон с блюром 20% и без растягивания */
+        .background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('background.jpg') center top no-repeat; background-size: contain; filter: blur(8px); opacity: 0.5; z-index: -1; transform: scale(1.1); }
+        
+        /* Полностью одинаковые бегущие строки */
+        .marquee { position: absolute; width: 100%; background: rgba(0,0,0,0.9); border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 12px 0; font-size: 14px; letter-spacing: 5px; white-space: nowrap; overflow: hidden; z-index: 100; }
+        .top { top: 40px; }
+        .bottom { bottom: 40px; }
+        
+        .marquee div { display: flex; width: 200%; animation: scroll 15s linear infinite; }
+        .marquee span { width: 50%; display: flex; justify-content: space-around; }
+        
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* Чистый таймер без полос */
+        .timer-container { text-align: center; z-index: 50; }
+        .label { font-size: 10px; letter-spacing: 6px; margin-bottom: 25px; opacity: 0.6; }
+        #display { font-size: 2.8rem; font-weight: bold; display: flex; gap: 15px; justify-content: center; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+        .unit { font-size: 9px; margin-top: 8px; opacity: 0.4; letter-spacing: 2px; }
+
+        #music-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; display: flex; justify-content: center; align-items: center; z-index: 1000; cursor: pointer; letter-spacing: 8px; font-size: 14px; }
     </style>
 </head>
 <body>
-
     <div class="background"></div>
-
-    <div id="music-overlay">TAP TO ENTER PROJECT_222</div>
+    <div id="music-overlay">ENTER PROJECT_222</div>
 
     <div class="marquee top">
-        <span>DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL</span>
+        <div>
+            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
+            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
+        </div>
     </div>
 
     <div class="timer-container">
@@ -129,52 +52,34 @@
     </div>
 
     <div class="marquee bottom">
-        <span>PROJECT_222 &nbsp;&nbsp;&nbsp; DEADGOTHANGEL.WORLD &nbsp;&nbsp;&nbsp; PROJECT_222 &nbsp;&nbsp;&nbsp; DEADGOTHANGEL.WORLD</span>
+        <div>
+            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
+            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
+        </div>
     </div>
 
-    <div class="audio-info">
-        PLAYING: Project_222.mp3
-    </div>
-    
     <audio id="bgMusic" loop src="Project_222.mp3"></audio>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
         const musicOverlay = document.getElementById('music-overlay');
         const bgMusic = document.getElementById('bgMusic');
-
-        // Музыка по клику
-        musicOverlay.addEventListener('click', () => {
-            bgMusic.play();
-            musicOverlay.style.display = 'none';
-            
-            // Запуск автоматического отсчета
-            setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    updateDisplay();
-                }
-            }, 1000);
-        });
-
-        // Таймер на 14 дней в секундах
-        let timeLeft = 14 * 24 * 60 * 60; 
-
+        let timeLeft = 14 * 24 * 60 * 60;
         function updateDisplay() {
             const d = Math.floor(timeLeft / (3600*24));
             const h = Math.floor((timeLeft % (3600*24)) / 3600);
             const m = Math.floor((timeLeft % 3600) / 60);
             const s = timeLeft % 60;
-
             document.getElementById('d').innerText = d < 10 ? '0'+d : d;
             document.getElementById('h').innerText = h < 10 ? '0'+h : h;
             document.getElementById('m').innerText = m < 10 ? '0'+m : m;
             document.getElementById('s').innerText = s < 10 ? '0'+s : s;
         }
-
-        updateDisplay(); // Предварительный показ
+        musicOverlay.addEventListener('click', () => {
+            bgMusic.play();
+            musicOverlay.style.display = 'none';
+            setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } }, 1000);
+        });
+        updateDisplay();
     </script>
 </body>
 </html>
