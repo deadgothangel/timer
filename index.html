@@ -19,9 +19,11 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: url('background.jpg.jpg') center/cover no-repeat;
+            /* Важно: название должно в точности совпадать с файлом на GitHub */
+            background: url('background.jpg') center/cover no-repeat;
             opacity: 0.4;
             z-index: -1;
+            transform: scale(1.1);
         }
 
         .marquee {
@@ -36,7 +38,7 @@
 
         .marquee span {
             display: inline-block;
-            animation: scroll 20s linear infinite;
+            animation: scroll 15s linear infinite;
         }
 
         @keyframes scroll {
@@ -50,10 +52,7 @@
             padding: 30px; border-radius: 15px;
         }
 
-        .label {
-            font-size: 14px; letter-spacing: 4px; margin-bottom: 20px;
-            opacity: 0.8; text-decoration: underline;
-        }
+        .label { font-size: 14px; letter-spacing: 4px; margin-bottom: 20px; opacity: 0.8; text-decoration: underline; }
 
         #display {
             font-size: 2.5rem; font-weight: bold;
@@ -79,7 +78,7 @@
     <div id="music-overlay">TAP TO ENTER PROJECT_222<br><br>[ 14 DAYS REMAINING ]</div>
 
     <div class="marquee top">
-        <span>PROJECT_222 &nbsp;&nbsp;&nbsp; DEADGOTHANGEL.WORLD &nbsp;&nbsp;&nbsp; PROJECT_222</span>
+        <span>DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL &nbsp;&nbsp; DEADGOTHANGEL</span>
     </div>
 
     <div class="timer-container">
@@ -93,7 +92,7 @@
     </div>
 
     <div class="marquee bottom">
-        <span>PROJECT_222 &nbsp;&nbsp;&nbsp; DEADGOTHANGEL.WORLD &nbsp;&nbsp;&nbsp; PROJECT_222</span>
+        <span>PROJECT_222 &nbsp;&nbsp; DEADGOTHANGEL.WORLD &nbsp;&nbsp; PROJECT_222 &nbsp;&nbsp; DEADGOTHANGEL.WORLD</span>
     </div>
 
     <audio id="bgMusic" loop src="Project_222.mp3"></audio>
@@ -105,7 +104,7 @@
         const musicOverlay = document.getElementById('music-overlay');
         const bgMusic = document.getElementById('bgMusic');
 
-        // Таймер на 14 дней в секундах
+        // Таймер на 14 дней
         let timeLeft = 14 * 24 * 60 * 60; 
 
         function updateDisplay() {
@@ -120,11 +119,9 @@
             document.getElementById('s').innerText = s < 10 ? '0'+s : s;
         }
 
-        // Запуск всего по клику
         musicOverlay.addEventListener('click', () => {
             bgMusic.play();
             musicOverlay.style.display = 'none';
-            
             setInterval(() => {
                 if (timeLeft > 0) {
                     timeLeft--;
@@ -133,7 +130,7 @@
             }, 1000);
         });
 
-        updateDisplay(); // Предварительный показ
+        updateDisplay();
     </script>
 </body>
 </html>
