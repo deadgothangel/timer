@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEADGOTHANGEL | JUDGMENT DAY</title>
+    <title>DEADGOTHANGEL | PROJECT 222</title>
     <style>
         * { box-sizing: border-box; }
         
-        /* Фон теперь здесь, это надежнее */
         body { 
             margin: 0; padding: 0; height: 100vh; 
             background: #000 url('background.jpg') center center no-repeat; 
@@ -17,7 +16,6 @@
             overflow: hidden; text-transform: uppercase; 
         }
 
-        /* Затемнение, чтобы текст читался на любом фоне */
         .overlay-dark {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6);
@@ -33,8 +31,9 @@
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         .timer-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; z-index: 50; }
-        #display { font-size: 2.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 20px rgba(255, 0, 0, 0.7); }
-        .dots { padding-bottom: 15px; color: #ff0000; }
+        
+        #display { font-size: 2.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
+        .dots { padding-bottom: 10px; color: #fff; } 
         .unit { font-size: 10px; margin-top: 5px; opacity: 0.5; letter-spacing: 2px; text-align: center; }
 
         #music-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; cursor: pointer; transition: 0.8s; }
@@ -65,7 +64,7 @@
     </div>
 
     <div class="timer-container">
-        <div style="font-size: 12px; letter-spacing: 8px; margin-bottom: 20px; color: #ff0000; font-weight: bold;">JUDGMENT DAY</div>
+        <div style="font-size: 12px; letter-spacing: 8px; margin-bottom: 20px; color: #fff; font-weight: bold; opacity: 0.9;">JUDGMENT DAY</div>
         <div id="display">
             <div><span id="d">14</span><div class="unit">DAYS</div></div>
             <div class="dots">:</div>
@@ -95,13 +94,23 @@
         const musicOverlay = document.getElementById('music-overlay');
         const bgMusic = document.getElementById('bgMusic');
         const muteBtn = document.getElementById('mute-btn');
-        let timeLeft = 14 * 24 * 60 * 60;
+        
+        let targetDate = new Date().getTime() + (14 * 24 * 60 * 60 * 1000);
 
         function updateDisplay() {
-            const d = Math.floor(timeLeft / (3600*24));
-            const h = Math.floor((timeLeft % (3600*24)) / 3600);
-            const m = Math.floor((timeLeft % 3600) / 60);
-            const s = timeLeft % 60;
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('display').innerHTML = "00 : 00 : 00 : 00";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
             document.getElementById('d').innerText = d < 10 ? '0'+d : d;
             document.getElementById('h').innerText = h < 10 ? '0'+h : h;
             document.getElementById('m').innerText = m < 10 ? '0'+m : m;
@@ -109,10 +118,10 @@
         }
 
         musicOverlay.addEventListener('click', () => {
-            bgMusic.play().catch(e => console.log("Music play blocked"));
+            bgMusic.play().catch(e => console.log("Music error"));
             musicOverlay.style.opacity = '0';
             setTimeout(() => musicOverlay.style.display = 'none', 800);
-            setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } }, 1000);
+            setInterval(updateDisplay, 1000);
         });
 
         muteBtn.addEventListener('click', (e) => {
