@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEADGOTHANGEL | PROJECT 222</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background: #000; color: #fff;
+            font-family: 'Courier New', monospace;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            overflow: hidden; text-transform: uppercase;
+        }
+
+        .background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('background.jpg.jpg') center/cover no-repeat;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .marquee {
+            position: absolute; width: 100%;
+            background: rgba(0,0,0,0.9);
+            border-top: 1px solid #222; border-bottom: 1px solid #222;
+            padding: 10px 0; font-size: 14px; letter-spacing: 5px;
+            white-space: nowrap; overflow: hidden; z-index: 100;
+        }
+        .top { top: 30px; }
+        .bottom { bottom: 30px; }
+
+        .marquee span {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .timer-container {
+            text-align: center; z-index: 50;
+            background: rgba(0,0,0,0.6);
+            padding: 30px; border-radius: 15px;
+        }
+
+        .label {
+            font-size: 14px; letter-spacing: 4px; margin-bottom: 20px;
+            opacity: 0.8; text-decoration: underline;
+        }
+
+        #display {
+            font-size: 2.5rem; font-weight: bold;
+            display: flex; gap: 15px; justify-content: center;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+
+        .unit { font-size: 10px; margin-top: 5px; opacity: 0.6; letter-spacing: 2px; }
+
+        #music-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); color: #fff;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; cursor: pointer; letter-spacing: 5px;
+            text-align: center; padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <div id="music-overlay">TAP TO ENTER PROJECT_222<br><br>[ 14 DAYS REMAINING ]</div>
+
+    <div class="marquee top">
+        <span>PROJECT_222 &nbsp;&nbsp;&nbsp; DEADGOTHANGEL.WORLD &nbsp;&nbsp;&nbsp; PROJECT_222</span>
+    </div>
+
+    <div class="timer-container">
+        <div class="label">ESTIMATED TIME</div>
+        <div id="display">
+            <div><span id="d">14</span><div class="unit">DAYS</div></div>
+            <div><span id="h">00</span><div class="unit">HOURS</div></div>
+            <div><span id="m">00</span><div class="unit">MIN</div></div>
+            <div><span id="s">00</span><div class="unit">SEC</div></div>
+        </div>
+    </div>
+
+    <div class="marquee bottom">
+        <span>PROJECT_222 &nbsp;&nbsp;&nbsp; DEADGOTHANGEL.WORLD &nbsp;&nbsp;&nbsp; PROJECT_222</span>
+    </div>
+
+    <audio id="bgMusic" loop src="Project_222.mp3"></audio>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        const musicOverlay = document.getElementById('music-overlay');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // Таймер на 14 дней в секундах
+        let timeLeft = 14 * 24 * 60 * 60; 
+
+        function updateDisplay() {
+            const d = Math.floor(timeLeft / (3600*24));
+            const h = Math.floor((timeLeft % (3600*24)) / 3600);
+            const m = Math.floor((timeLeft % 3600) / 60);
+            const s = timeLeft % 60;
+
+            document.getElementById('d').innerText = d < 10 ? '0'+d : d;
+            document.getElementById('h').innerText = h < 10 ? '0'+h : h;
+            document.getElementById('m').innerText = m < 10 ? '0'+m : m;
+            document.getElementById('s').innerText = s < 10 ? '0'+s : s;
+        }
+
+        // Запуск всего по клику
+        musicOverlay.addEventListener('click', () => {
+            bgMusic.play();
+            musicOverlay.style.display = 'none';
+            
+            setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                }
+            }, 1000);
+        });
+
+        updateDisplay(); // Предварительный показ
+    </script>
+</body>
+</html>
