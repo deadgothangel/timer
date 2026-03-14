@@ -4,35 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEADGOTHANGEL | PROJECT 222</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; text-transform: uppercase; }
         
-        /* Фон с блюром 20% и без растягивания */
         .background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('background.jpg') center top no-repeat; background-size: contain; filter: blur(8px); opacity: 0.5; z-index: -1; transform: scale(1.1); }
         
-        /* Полностью одинаковые бегущие строки */
         .marquee { position: absolute; width: 100%; background: rgba(0,0,0,0.9); border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 12px 0; font-size: 14px; letter-spacing: 5px; white-space: nowrap; overflow: hidden; z-index: 100; }
         .top { top: 40px; }
         .bottom { bottom: 40px; }
-        
         .marquee div { display: flex; width: 200%; animation: scroll 15s linear infinite; }
         .marquee span { width: 50%; display: flex; justify-content: space-around; }
-        
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* Чистый таймер без полос */
         .timer-container { text-align: center; z-index: 50; }
-        .label { font-size: 10px; letter-spacing: 6px; margin-bottom: 25px; opacity: 0.6; }
         #display { font-size: 2.8rem; font-weight: bold; display: flex; gap: 15px; justify-content: center; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
         .unit { font-size: 9px; margin-top: 8px; opacity: 0.4; letter-spacing: 2px; }
 
-        #music-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; display: flex; justify-content: center; align-items: center; z-index: 1000; cursor: pointer; letter-spacing: 8px; font-size: 14px; }
+        /* Начальный экран */
+        #music-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; cursor: pointer; }
+        .play-btn { width: 80px; height: 80px; border: 2px solid #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .play-btn::after { content: ''; display: block; width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid #fff; margin-left: 10px; }
+        /* Твой новый текст тут */
+        .tap-text { letter-spacing: 8px; font-size: 14px; opacity: 0.8; }
+
+        .audio-controls { position: fixed; bottom: 20px; width: 90%; display: flex; justify-content: space-between; align-items: center; z-index: 200; font-size: 12px; letter-spacing: 2px; opacity: 0.7; }
+        #mute-btn { cursor: pointer; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; }
     </style>
 </head>
 <body>
     <div class="background"></div>
-    <div id="music-overlay">ENTER PROJECT_222</div>
+    
+    <div id="music-overlay">
+        <div class="play-btn"></div>
+        <div class="tap-text">ТЫ УВЕРЕН???</div>
+    </div>
 
     <div class="marquee top">
         <div>
@@ -42,7 +47,7 @@
     </div>
 
     <div class="timer-container">
-        <div class="label">ESTIMATED TIME</div>
+        <div style="font-size: 10px; letter-spacing: 6px; margin-bottom: 25px; opacity: 0.6;">ESTIMATED TIME</div>
         <div id="display">
             <div><span id="d">14</span><div class="unit">DAYS</div></div>
             <div><span id="h">00</span><div class="unit">HOURS</div></div>
@@ -58,12 +63,19 @@
         </div>
     </div>
 
+    <div class="audio-controls">
+        <div id="song-name">DEADGOTHANGEL — DОЖДЬ</div>
+        <div id="mute-btn">🔊</div>
+    </div>
+
     <audio id="bgMusic" loop src="Project_222.mp3"></audio>
 
     <script>
         const musicOverlay = document.getElementById('music-overlay');
         const bgMusic = document.getElementById('bgMusic');
+        const muteBtn = document.getElementById('mute-btn');
         let timeLeft = 14 * 24 * 60 * 60;
+
         function updateDisplay() {
             const d = Math.floor(timeLeft / (3600*24));
             const h = Math.floor((timeLeft % (3600*24)) / 3600);
@@ -74,11 +86,18 @@
             document.getElementById('m').innerText = m < 10 ? '0'+m : m;
             document.getElementById('s').innerText = s < 10 ? '0'+s : s;
         }
+
         musicOverlay.addEventListener('click', () => {
             bgMusic.play();
             musicOverlay.style.display = 'none';
             setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } }, 1000);
         });
+
+        muteBtn.addEventListener('click', () => {
+            bgMusic.muted = !bgMusic.muted;
+            muteBtn.innerText = bgMusic.muted ? '🔇' : '🔊';
+        });
+
         updateDisplay();
     </script>
 </body>
