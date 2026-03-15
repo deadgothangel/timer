@@ -22,6 +22,17 @@
             backdrop-filter: blur(3px);
             z-index: 1;
         }
+
+        /* Эффект Глитча (активируется классом glitch-active) */
+        @keyframes shake {
+            0% { transform: translate(0,0); }
+            10% { transform: translate(-4px, -2px); filter: hue-rotate(90deg) contrast(1.5); }
+            20% { transform: translate(3px, 5px); }
+            30% { transform: translate(-4px, 2px); }
+            40% { transform: translate(2px, -3px); opacity: 0.8; }
+            100% { transform: translate(0,0); }
+        }
+        .glitch-active { animation: shake 0.25s infinite; }
         
         .marquee { position: absolute; width: 100%; background: rgba(0,0,0,0.8); border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 10px 0; font-size: 14px; letter-spacing: 5px; white-space: nowrap; overflow: hidden; z-index: 100; }
         .top { top: 30px; }
@@ -45,7 +56,10 @@
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .bottom-bar { position: fixed; bottom: 20px; width: 90%; left: 5%; display: flex; justify-content: space-between; align-items: center; z-index: 200; font-size: 11px; letter-spacing: 1px; opacity: 0.8; }
-        #mute-btn { cursor: pointer; font-size: 18px; }
+        
+        #mute-btn { cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        #mute-btn:active { transform: scale(0.9); }
+        #mute-icon { width: 100%; height: auto; filter: invert(1); } /* Белый цвет иконки */
     </style>
 </head>
 <body>
@@ -53,7 +67,7 @@
     
     <div id="music-overlay">
         <div class="play-btn"></div>
-        <div class="tap-text">ТЫ УВЕРЕН???</div>
+        <div class="tap-text">ENTER THE VOID</div>
     </div>
 
     <div class="marquee top">
@@ -64,9 +78,9 @@
     </div>
 
     <div class="timer-container">
-        <div style="font-size: 12px; letter-spacing: 8px; margin-bottom: 20px; color: #fff; font-weight: bold; opacity: 0.9;">JUDGMENT DAY</div>
+        <div id="status-text" style="font-size: 12px; letter-spacing: 8px; margin-bottom: 20px; color: #fff; font-weight: bold; opacity: 0.9;">JUDGMENT DAY</div>
         <div id="display">
-            <div><span id="d">14</span><div class="unit">DAYS</div></div>
+            <div><span id="d">00</span><div class="unit">DAYS</div></div>
             <div class="dots">:</div>
             <div><span id="h">00</span><div class="unit">HOURS</div></div>
             <div class="dots">:</div>
@@ -85,7 +99,9 @@
 
     <div class="bottom-bar">
         <div id="song-name">DEADGOTHANGEL — DОЖДЬ</div>
-        <div id="mute-btn">🔊</div>
+        <div id="mute-btn">
+            <img id="mute-icon" src="https://cdn-icons-png.flaticon.com/512/5912/5912239.png" alt="volume">
+        </div>
     </div>
 
     <audio id="bgMusic" loop src="Project_222.mp3"></audio>
@@ -93,17 +109,28 @@
     <script>
         const musicOverlay = document.getElementById('music-overlay');
         const bgMusic = document.getElementById('bgMusic');
+        const muteIcon = document.getElementById('mute-icon');
         const muteBtn = document.getElementById('mute-btn');
         
-        let targetDate = new Date().getTime() + (14 * 24 * 60 * 60 * 1000);
+        // 29 марта 00:00 по Москве (UTC+3) = 28 марта 21:00 по UTC
+        const targetDate = new Date(Date.UTC(2026, 2, 28, 21, 0, 0)).getTime();
 
         function updateDisplay() {
             const now = new Date().getTime();
             const diff = targetDate - now;
 
+            // Если время вышло (00:00:00 по МСК)
             if (diff <= 0) {
                 document.getElementById('display').innerHTML = "00 : 00 : 00 : 00";
+                document.getElementById('status-text').innerText = "SYSTEM FAILURE";
+                document.body.classList.add('glitch-active');
                 return;
+            }
+
+            // Глитч включается за 24 часа до конца (86,400,000 мс)
+            if (diff < 86400000) {
+                document.body.classList.add('glitch-active');
+                document.getElementById('status-text').innerText = "ERROR LOADING...";
             }
 
             const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -118,18 +145,25 @@
         }
 
         musicOverlay.addEventListener('click', () => {
-            bgMusic.play().catch(e => console.log("Music error"));
+            bgMusic.play().catch(e => console.log("Audio play failed"));
             musicOverlay.style.opacity = '0';
             setTimeout(() => musicOverlay.style.display = 'none', 800);
+            
+            // Запуск таймера
+            updateDisplay();
             setInterval(updateDisplay, 1000);
         });
 
         muteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             bgMusic.muted = !bgMusic.muted;
-            muteBtn.innerText = bgMusic.muted ? '🔇' : '🔊';
+            // Смена ассета иконки (динамик / зачеркнутый динамик)
+            muteIcon.src = bgMusic.muted 
+                ? "https://cdn-icons-png.flaticon.com/512/5912/5912255.png" 
+                : "https://cdn-icons-png.flaticon.com/512/5912/5912239.png";
         });
 
+        // Первичный расчет до запуска
         updateDisplay();
     </script>
 </body>
