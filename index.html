@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DEADGOTHANGEL | PROJECT 222</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         * { box-sizing: border-box; }
         
@@ -23,13 +24,11 @@
             z-index: 1;
         }
 
-        /* Эффект Глитча (активируется классом glitch-active) */
         @keyframes shake {
             0% { transform: translate(0,0); }
             10% { transform: translate(-4px, -2px); filter: hue-rotate(90deg) contrast(1.5); }
             20% { transform: translate(3px, 5px); }
             30% { transform: translate(-4px, 2px); }
-            40% { transform: translate(2px, -3px); opacity: 0.8; }
             100% { transform: translate(0,0); }
         }
         .glitch-active { animation: shake 0.25s infinite; }
@@ -57,9 +56,10 @@
 
         .bottom-bar { position: fixed; bottom: 20px; width: 90%; left: 5%; display: flex; justify-content: space-between; align-items: center; z-index: 200; font-size: 11px; letter-spacing: 1px; opacity: 0.8; }
         
-        #mute-btn { cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        /* Кнопка звука — теперь на шрифтовых иконках */
+        #mute-btn { cursor: pointer; font-size: 22px; color: #fff; transition: transform 0.2s, opacity 0.2s; display: flex; align-items: center; }
+        #mute-btn:hover { opacity: 0.7; }
         #mute-btn:active { transform: scale(0.9); }
-        #mute-icon { width: 100%; height: auto; filter: invert(1); } /* Белый цвет иконки */
     </style>
 </head>
 <body>
@@ -100,7 +100,7 @@
     <div class="bottom-bar">
         <div id="song-name">DEADGOTHANGEL — DОЖДЬ</div>
         <div id="mute-btn">
-            <img id="mute-icon" src="https://cdn-icons-png.flaticon.com/512/5912/5912239.png" alt="volume">
+            <i id="mute-icon" class="bi bi-volume-up"></i>
         </div>
     </div>
 
@@ -112,14 +112,13 @@
         const muteIcon = document.getElementById('mute-icon');
         const muteBtn = document.getElementById('mute-btn');
         
-        // 29 марта 00:00 по Москве (UTC+3) = 28 марта 21:00 по UTC
+        // 29 марта 00:00 по Москве (это 28 марта 21:00 UTC)
         const targetDate = new Date(Date.UTC(2026, 2, 28, 21, 0, 0)).getTime();
 
         function updateDisplay() {
             const now = new Date().getTime();
             const diff = targetDate - now;
 
-            // Если время вышло (00:00:00 по МСК)
             if (diff <= 0) {
                 document.getElementById('display').innerHTML = "00 : 00 : 00 : 00";
                 document.getElementById('status-text').innerText = "SYSTEM FAILURE";
@@ -127,7 +126,6 @@
                 return;
             }
 
-            // Глитч включается за 24 часа до конца (86,400,000 мс)
             if (diff < 86400000) {
                 document.body.classList.add('glitch-active');
                 document.getElementById('status-text').innerText = "ERROR LOADING...";
@@ -145,11 +143,9 @@
         }
 
         musicOverlay.addEventListener('click', () => {
-            bgMusic.play().catch(e => console.log("Audio play failed"));
+            bgMusic.play().catch(e => console.log("Audio fail"));
             musicOverlay.style.opacity = '0';
             setTimeout(() => musicOverlay.style.display = 'none', 800);
-            
-            // Запуск таймера
             updateDisplay();
             setInterval(updateDisplay, 1000);
         });
@@ -157,13 +153,16 @@
         muteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             bgMusic.muted = !bgMusic.muted;
-            // Смена ассета иконки (динамик / зачеркнутый динамик)
-            muteIcon.src = bgMusic.muted 
-                ? "https://cdn-icons-png.flaticon.com/512/5912/5912255.png" 
-                : "https://cdn-icons-png.flaticon.com/512/5912/5912239.png";
+            // Переключаем классы иконок Bootstrap
+            if (bgMusic.muted) {
+                muteIcon.classList.remove('bi-volume-up');
+                muteIcon.classList.add('bi-volume-mute');
+            } else {
+                muteIcon.classList.remove('bi-volume-mute');
+                muteIcon.classList.add('bi-volume-up');
+            }
         });
 
-        // Первичный расчет до запуска
         updateDisplay();
     </script>
 </body>
