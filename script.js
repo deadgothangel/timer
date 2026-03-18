@@ -1,52 +1,36 @@
-const timerElement = document.getElementById('timer');
+const timer = document.getElementById('timer');
 const audio = document.getElementById('bg-audio');
-const speakerIcon = document.getElementById('speaker-icon');
-const glitchTitle = document.querySelector('.error-title');
+const nick = document.getElementById('glitch-nick');
 
-// Бешеный глитч-эффект для таймера
-function glitchTimer() {
-    let mm = Math.floor(Math.random() * 99).toString().padStart(2, '0');
-    let ss = Math.floor(Math.random() * 99).toString().padStart(2, '0');
+// Таймер
+setInterval(() => {
+    let mm = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+    let ss = Math.floor(Math.random() * 60).toString().padStart(2, '0');
     let ms = Math.floor(Math.random() * 99).toString().padStart(2, '0');
-    
-    timerElement.innerText = `00:${mm}:${ss}:${ms}`;
+    timer.innerText = `00:${mm}:${ss}:${ms}`;
+}, 50);
+
+// Глитч ника
+const chars = "ΔΣΦΨΩ777XX???";
+setInterval(() => {
+    let raw = "DEADGOTHANGEL — ";
+    let glitch = "";
+    for(let i=0; i<5; i++) glitch += chars[Math.floor(Math.random()*chars.length)];
+    nick.innerText = raw + glitch;
+}, 100);
+
+// Звук
+function toggleMute() {
+    audio.muted = !audio.muted;
+    document.getElementById('speaker-icon').style.fill = audio.muted ? "#222" : "red";
 }
 
-// Запуск таймера
-setInterval(glitchTimer, 50);
-
-// !!! УПРАВЛЕНИЕ ЗВУКОМ (По клику на динамик) !!!
-function toggleAudio() {
-    if (audio.paused) {
-        audio.play().catch(e => console.log("Audio play blocked"));
-        speakerIcon.style.fill = "#555"; // Серый при включении
-    } else {
-        audio.pause();
-        speakerIcon.style.fill = "#222"; // Почти черный при выключении
-    }
+// Окна
+function openModal(id) {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    document.getElementById(id).style.display = 'flex';
 }
 
-// Слушатель клика по иконке
-speakerIcon.addEventListener('click', toggleAudio);
-
-// !!! ЛОГИКА ОКОН !!!
-
-const mainModal = document.getElementById('main-modal');
-const instrModal = document.getElementById('instr-modal');
-
-function openMainModal() {
-    closeAllModals();
-    mainModal.style.display = "block";
-    // Попытка запустить музыку при клике (обход блоков браузера)
-    audio.play().catch(e => console.log("Audio play blocked"));
-}
-
-function openInstrModal() {
-    closeAllModals();
-    instrModal.style.display = "block";
-}
-
-function closeAllModals() {
-    mainModal.style.display = "none";
-    instrModal.style.display = "none";
+function closeModal(e, id) {
+    if(e.target.className === 'modal') document.getElementById(id).style.display = 'none';
 }
