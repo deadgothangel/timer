@@ -2,76 +2,60 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM_FAILURE // DEADGOTHANGEL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEADGOTHANGEL // ИСХØД</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hacking-mode">
-    <div id="audio-panel">
-        <svg id="speaker-icon" width="40" height="40" viewBox="0 0 24 24" fill="#555" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11.5 6C9.52 6 7.82 7.37 7.23 9.27L9.2 9.77C9.58 8.7 10.45 8 11.5 8C12.88 8 14 9.12 14 10.5C14 11.88 12.88 13 11.5 13H11V15H11.5C13.98 15 16 12.98 16 10.5C16 8.02 13.98 6 11.5 6ZM10 17H13V19H10V17Z"/>
-        </svg>
-        <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
-    </div>
-
     <div class="bg-overlay"></div>
+    <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
+
+    <div id="mute-toggle" onclick="toggleMute()">
+        <svg id="speaker-icon" width="30" height="30" viewBox="0 0 24 24" fill="red">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+    </div>
 
     <div class="marquee">
-        <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
+        <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB</span>
     </div>
 
-    <div class="container">
-        <h1 class="error-title glitch" data-text="DEADGOTHANGEL — ?????">
-            D<span class="glitch-char">?</span>ADGOTHANG<span class="glitch-char">?</span>L — <span class="glitch-char">?????</span>
-        </h1>
+    <main class="app-container">
+        <div id="glitch-nick">DEADGOTHANGEL — ?????</div>
         
         <div id="timer">00:00:00:00</div>
         
-        <button id="what-happened-btn" onclick="openMainModal()">ЧТО СЛУЧИЛОСЬ?</button>
-    </div>
+        <button id="main-btn" onclick="openModal('main-modal')">ЧТО СЛУЧИЛОСЬ?</button>
+    </main>
 
-    <div id="main-modal" class="modal">
+    <div id="main-modal" class="modal" onclick="closeModal(event, 'main-modal')">
         <div class="modal-content">
-            <span class="close-btn-top" onclick="closeAllModals()">&times;</span>
-            <h2 style="font-size: 1.5rem; letter-spacing: 5px;">ВЫБØP ЗΔ ВΔМИ</h2>
-            <p>СИСТЕМА ТPЕБУЕТ ОБНØВЛЕНИЯ.</p>
-            
-            <div class="qr-container-embedded">
-                <img src="qr_bot.png" alt="QR_CODE" class="qr-image-embedded">
-                <div class="qr-scan-line"></div> </div>
-
-            <p class="blink red">ОБЪЕKT_NØ_7ΔKBΔЧЕН</p>
-            <br>
-            
-            <p class="action-text blink red" onclick="openInstrModal()">ПОМОГИ СИСТЕМЕ</p>
-            
-            <br>
-            <a href="https://t.me/testtest228testbot" class="bot-link action-text blink white">ВØЙТИ В СИСTЕМУ</a>
-            <br><br>
-            <button onclick="closeAllModals()" class="close-btn-bottom">ЗΔKPЫTЬ</button>
-        </div>
-    </div>
-
-    <div id="instr-modal" class="modal">
-        <div class="modal-content instr-content">
-            <span class="close-btn-top" onclick="openMainModal()">&larr; НАЗАД</span>
-            <h2 style="color: #f00;">ИНСTPУКЦИЯ: ИСХØД</h2>
-            
-            <div class="instr-steps">
-                <p>1. <span class="step-num">ШАГ 1:</span> Сканируй QR-код.</p>
-                <p>2. <span class="step-num">ШАГ 2:</span> Нажми "/start".</p>
-                <p>3. <span class="step-num">ШАГ 3:</span> В «МØЁ ДØCЬE» найди ссылку.</p>
-                <p>4. <span class="step-num">ШАГ 4:</span> Скинь её объекту.</p>
+            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
+            <div class="qr-box">
+                <img src="qr_bot.png" alt="QR" class="qr-img">
+                <div class="scan-line"></div>
             </div>
-            
-            <p class="instr-reward blink red">ПØØЩPЕНИЕ СИСTEMЫ:</p>
-            <p>1 ПPИГЛΔШЁННЫЙ = +1 К КΔPМЕ // ДØСТУП К ДPØПУ</p>
+            <p class="blink red">ОБЪЕKT_NØ_7ΔKBΔЧЕН</p>
+            <p class="action-link" onclick="openModal('instr-modal')">ПОМОГИ СИСТЕМЕ</p>
+            <a href="https://t.me/testtest228testbot" class="bot-btn">ВØЙТИ В СИСTЕМУ</a>
         </div>
     </div>
 
-    <div class="footer-text">
-        <p>DEADGOTHANGEL // ИСХØД // 2026</p>
+    <div id="instr-modal" class="modal" onclick="closeModal(event, 'instr-modal')">
+        <div class="modal-content">
+            <h2 class="red">ИНСTPУКЦИЯ</h2>
+            <div class="steps">
+                <p>1. Скан QR</p>
+                <p>2. Жми /start</p>
+                <p>3. Копируй ссылку из Досье</p>
+                <p>4. Отправь объекту</p>
+            </div>
+            <p class="reward">НАГРАДА: +1 К КАРМЕ // ДОСТУП</p>
+            <button class="back-btn" onclick="openModal('main-modal')">НАЗАД</button>
+        </div>
     </div>
+
+    <div class="footer">DEADGOTHANGEL // 2026</div>
 
     <script src="script.js"></script>
 </body>
