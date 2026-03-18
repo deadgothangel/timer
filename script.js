@@ -1,25 +1,37 @@
 const timerDisp = document.getElementById('timer');
 const glitchDisp = document.getElementById('glitch-chars');
+const audio = document.getElementById('bg-audio');
 
-// ТАЙМЕР В 30 РАЗ БЫСТРЕЕ
-// Используем Performance.now() для точности на высоких скоростях
+// 1. УЛЬТРА-ТАЙМЕР
 setInterval(() => {
     const time = Date.now().toString();
-    const part1 = time.slice(-8, -6);
-    const part2 = time.slice(-6, -4);
-    const part3 = time.slice(-4, -2);
-    const part4 = time.slice(-2); // Самые быстрые цифры
-    
-    timerDisp.innerText = `${part1}:${part2}:${part3}:${part4}`;
-}, 10); // 10мс = 100 кадров в секунду, будет лететь
+    timerDisp.innerText = `${time.slice(-8,-6)}:${time.slice(-6,-4)}:${time.slice(-4,-2)}:${time.slice(-2)}`;
+}, 10);
 
-// ГЛИТЧ СИМВОЛОВ (только после тире)
+// 2. ГЛИТЧ НИКА
 const chars = "ΔΣΦΨΩ777X?#@";
 setInterval(() => {
     let res = "";
     for(let i=0; i<5; i++) res += chars[Math.floor(Math.random()*chars.length)];
     glitchDisp.innerText = res;
-}, 100);
+}, 80);
 
-function openModal() { document.getElementById('modal').style.display = 'flex'; }
-function closeModal(e) { if(e.target.id === 'modal') document.getElementById('modal').style.display = 'none'; }
+// 3. ЗВУК И ОКНА
+function toggleMute() {
+    audio.muted = !audio.muted;
+    document.getElementById('spk-icon').style.fill = audio.muted ? "#333" : "red";
+}
+
+function openMainModal() {
+    document.getElementById('modal-instr').style.display = 'none';
+    document.getElementById('modal-main').style.display = 'flex';
+}
+
+function openInstr() {
+    document.getElementById('modal-main').style.display = 'none';
+    document.getElementById('modal-instr').style.display = 'flex';
+}
+
+function closeByOverlay(e, id) {
+    if(e.target.id === id) document.getElementById(id).style.display = 'none';
+}
