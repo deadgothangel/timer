@@ -1,34 +1,25 @@
-const timer = document.getElementById('timer-display');
-const nick = document.getElementById('glitch-nick');
-const audio = document.getElementById('bg-audio');
+const timerDisp = document.getElementById('timer');
+const glitchDisp = document.getElementById('glitch-chars');
 
-// 1. ТАЙМЕР (Бесконечный бег)
+// ТАЙМЕР В 30 РАЗ БЫСТРЕЕ
+// Используем Performance.now() для точности на высоких скоростях
 setInterval(() => {
-    const now = Date.now().toString();
-    const ms = now.slice(-2);
-    const secs = (Math.floor(Date.now() / 1000) % 60).toString().padStart(2, '0');
-    // Мы просто заставляем цифры бежать, имитируя отсчет
-    timer.innerText = `00:00:${secs}:${ms}`;
-}, 30);
+    const time = Date.now().toString();
+    const part1 = time.slice(-8, -6);
+    const part2 = time.slice(-6, -4);
+    const part3 = time.slice(-4, -2);
+    const part4 = time.slice(-2); // Самые быстрые цифры
+    
+    timerDisp.innerText = `${part1}:${part2}:${part3}:${part4}`;
+}, 10); // 10мс = 100 кадров в секунду, будет лететь
 
-// 2. ГЛИТЧ НИКА (Всего слова)
-const original = "DEADGOTHANGEL";
+// ГЛИТЧ СИМВОЛОВ (только после тире)
 const chars = "ΔΣΦΨΩ777X?#@";
 setInterval(() => {
-    let result = "";
-    for(let i = 0; i < original.length; i++) {
-        // С шансом 30% заменяем букву на символ
-        result += Math.random() > 0.7 ? chars[Math.floor(Math.random()*chars.length)] : original[i];
-    }
-    nick.innerText = result;
+    let res = "";
+    for(let i=0; i<5; i++) res += chars[Math.floor(Math.random()*chars.length)];
+    glitchDisp.innerText = res;
 }, 100);
 
-// 3. ЗВУК И МОДАЛКИ
-function toggleSound() {
-    if (audio.paused) { audio.play(); document.getElementById('spk-icon').style.fill = "red"; }
-    else { audio.pause(); document.getElementById('spk-icon').style.fill = "#333"; }
-}
-
-function openMod() { document.getElementById('modal-overlay').style.display = 'flex'; }
-function forceClose() { document.getElementById('modal-overlay').style.display = 'none'; }
-function closeMod(e) { if(e.target.id === 'modal-overlay') forceClose(); }
+function openModal() { document.getElementById('modal').style.display = 'flex'; }
+function closeModal(e) { if(e.target.id === 'modal') document.getElementById('modal').style.display = 'none'; }
