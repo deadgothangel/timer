@@ -6,10 +6,9 @@
     <title>DEADGOTHANGEL // ИСХØД</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="hacking-mode">
-    <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
-
+<body>
     <div class="bg-overlay"></div>
+    <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
 
     <div id="mute-toggle" onclick="toggleMute()">
         <svg id="speaker-icon" width="30" height="30" viewBox="0 0 24 24" fill="red">
@@ -23,57 +22,44 @@
 
     <main class="app-container">
         <div id="nickname">DEADGOTHANGEL — <span id="glitch-chars">?????</span></div>
-        
         <div id="timer">00:00:00:00</div>
-        
         <button id="main-btn" onclick="openModal('main-modal')">ЧТО СЛУЧИЛОСЬ?</button>
     </main>
 
     <div id="main-modal" class="modal" onclick="closeModal(event, 'main-modal')">
         <div class="modal-content">
-            
             <span class="close-btn-top" onclick="closeModals()">&larr; НАЗАД</span>
-            
             <h2 class="strict-header">ВЫБØP ЗΔ ВΔМИ</h2>
-            
             <p class="blink red status-text">СИСТЕМА ЗАХВАЧЕНА</p>
-            
             <div class="qr-box">
                 <img src="qr_bot.png" alt="QR" class="qr-img">
                 <div class="scan-line"></div>
             </div>
-            
             <p class="action-link" onclick="openModal('instr-modal')">ПОМОГИ СИСТЕМЕ</p>
-            
             <a href="https://t.me/testtest228testbot" class="bot-btn-static">ВØЙТИ</a>
-            
             <p class="close-text" onclick="closeModals()">ЗАКРЫТЬ</p>
         </div>
     </div>
 
     <div id="instr-modal" class="modal" onclick="closeModal(event, 'instr-modal')">
-        <div class="modal-content instr-content">
+        <div class="modal-content">
             <span class="close-btn-top" onclick="openModal('main-modal')">&larr; НАЗАД</span>
-            
-            <h2 class="red strict-header">ИНСTPУКЦИЯ: ИСХØД</h2>
+            <h2 class="red strict-header">ИНСTPУКЦИЯ</h2>
             <div class="steps-list">
                 <p>1. Скан QR</p>
                 <p>2. Жми "/start"</p>
                 <p>3. Копируй ссылку из Досье</p>
                 <p>4. Отправь объекту</p>
             </div>
-            
             <div class="reward-zone">
                 <p class="instr-reward blink red">НАГРАДА:</p>
                 <p>+1 К КАРМЕ // ДОСТУП К ДРОПУ</p>
             </div>
-            
             <button class="back-btn" onclick="openModal('main-modal')">НАЗАД</button>
         </div>
     </div>
 
-    <div class="footer">DEADGOTHANGEL // ИСХØД // 2026</div>
-
+    <div class="footer">DEADGOTHANGEL // 2026</div>
     <script src="script.js"></script>
 </body>
 </html>
