@@ -1,8 +1,5 @@
-body {
-    margin: 0; padding: 0; background: #000;
-    font-family: 'Courier New', monospace; color: #fff;
-    height: 100vh; overflow: hidden;
-}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; width: 100%; margin: 0; padding: 0; background: #000; overflow: hidden; }
 
 /* Настоящий Ч/Б фон */
 .bg-layer {
@@ -22,29 +19,49 @@ body {
 .marquee span { display: inline-block; animation: scroll 15s linear infinite; color: #f00; font-size: 12px; }
 @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-.container { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.container { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Courier New', monospace;}
 
 #nickname { font-size: 14px; letter-spacing: 3px; color: #888; margin-bottom: 10px; }
 #timer { font-size: 13vw; font-weight: bold; text-shadow: 0 0 20px #f00; margin-bottom: 30px; }
 
 #main-btn {
+    font-family: 'Courier New', monospace;
     background: #f00; color: #fff; border: none; padding: 15px 30px;
     font-weight: bold; cursor: pointer;
 }
 
 /* Модалки */
 .modal-overlay {
+    font-family: 'Courier New', monospace;
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center;
 }
 .modal-content {
     border: 1px solid #f00; background: #000; padding: 30px; text-align: center; width: 85%;
 }
+
+/* Статус теперь сверху */
+.status-text { text-transform: uppercase; font-weight: bold; margin-bottom: 15px; letter-spacing: 2px;}
+
 .qr-box img { width: 140px; filter: invert(1); margin: 15px 0; }
 .instr-link { text-decoration: underline; cursor: pointer; margin: 15px 0; font-size: 14px; }
-.bot-link { display: block; color: #f00; font-weight: bold; text-decoration: none; font-size: 22px; }
-.back-btn { background: #333; color: #fff; border: none; padding: 10px 20px; margin-top: 20px; }
+.bot-link { display: block; color: #f00; font-weight: bold; text-decoration: none; font-size: 22px; margin-top: 15px;}
+.back-btn { font-family: 'Courier New', monospace; background: #333; color: #fff; border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer;}
+
+/* Стили для инструкции и награды */
+.steps-list { text-align: left; max-width: 250px; margin: 0 auto 20px auto; }
+.steps-list p { margin: 10px 0; font-size: 13px;}
+
+.reward-zone { border-top: 1px solid #333; padding-top: 15px; margin-top: 15px;}
+.instr-reward { text-transform: uppercase; font-weight: bold; font-size: 14px;}
+.reward-zone p { font-size: 12px; margin: 5px 0; color: #888;}
+
+.strict-header { letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px;}
+
+.action-text { cursor: pointer; text-transform: uppercase; }
+
 .red { color: #f00; }
 .blink { animation: bl 1s infinite; }
 @keyframes bl { 50% { opacity: 0; } }
-.footer { position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 10px; opacity: 0.2; }
+
+.footer { position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 10px; opacity: 0.2; font-family: 'Courier New', monospace;}
