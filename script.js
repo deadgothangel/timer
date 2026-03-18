@@ -1,44 +1,49 @@
 const timerDisp = document.getElementById('timer');
-const glitchDisp = document.getElementById('glitch-chars');
-const audio = document.getElementById('bg-audio');
+const audioObj = document.getElementById('bg-audio');
+const glitchTarget = document.getElementById('glitch-chars');
 
-// 1. УЛЬТРА-ТАЙМЕР (Бешеный бег)
+// ТАЙМЕР В 30 РАЗ БЫСТРЕЕ (Бешеный бег миллисекунд)
 setInterval(() => {
     // Получаем текущее время в миллисекундах и берем последние 2 цифры
     let now = Date.now().toString();
     let msGlitch = now.slice(-2);
-    let seconds = now.slice(-4, -2);
     
     // Мы просто заставляем цифры бежать, имитируя отсчет
-    timerDisp.innerText = `00:00:${seconds}:${msGlitch}`;
+    timerDisp.innerText = `00:00:00:${msGlitch}`;
 }, 10); // Частота обновления 10мс для эффекта глитча
 
-// 2. ГЛИТЧ НИКА
-const chars = "ΔΣΦΨΩ777X?#@";
+// ГЛИТЧ НИКА (только в части символов)
+const symbols = "ΔΣΦΨΩ777X?#@";
 setInterval(() => {
-    let res = "";
-    for(let i=0; i<5; i++) res += chars[Math.floor(Math.random()*chars.length)];
-    glitchDisp.innerText = res;
+    let out = "";
+    for(let i=0; i<5; i++) out += symbols[Math.floor(Math.random()*symbols.length)];
+    glitchTarget.innerText = out;
 }, 80);
 
-// 3. ЗВУК И ОКНА
+// Управление звуком (По клику на динамик)
 function toggleMute() {
-    audio.muted = !audio.muted;
-    document.getElementById('spk-icon').style.fill = audio.muted ? "#333" : "red";
+    audioObj.muted = !audioObj.muted;
+    document.getElementById('speaker-icon').style.fill = audioObj.muted ? "#333" : "red";
 }
 
-function openMainModal() {
-    document.getElementById('modal-instr').style.display = 'none';
-    document.getElementById('modal-main').style.display = 'flex';
+// !!! ЛОГИКА ОКОН !!!
+
+function openModal(id) {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    document.getElementById(id).style.display = 'flex';
     // Попытка запустить музыку при клике (обход блоков браузера)
-    audio.play().catch(e => console.log("Audio play blocked"));
+    audioObj.play().catch(e => console.log("Audio play blocked"));
 }
 
 function openInstr() {
-    document.getElementById('modal-main').style.display = 'none';
-    document.getElementById('modal-instr').style.display = 'flex';
+    openModal('instr-modal');
 }
 
-function closeByOverlay(e, id) {
-    if(e.target.id === id) document.getElementById(id).style.display = 'none';
+function closeModals() {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+}
+
+// Закрытие по клику на фон
+function closeModal(e, id) {
+    if(e.target.className === 'modal') closeModals();
 }
