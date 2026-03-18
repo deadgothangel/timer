@@ -29,23 +29,32 @@
     <div id="modal-main" class="modal-overlay" onclick="closeByOverlay(event, 'modal-main')">
         <div class="modal-content">
             <h2>ВЫБØP ЗΔ ВΔМИ</h2>
+            
+            <p class="blink red status-text">СИСТЕМА ЗАХВАЧЕНА</p>
+            
             <div class="qr-box">
                 <img src="qr_bot.png" alt="QR" class="qr-img">
             </div>
-            <p class="blink red">СИСТЕМА ЗАХВАЧЕНА</p>
+            
             <p class="instr-link" onclick="openInstr()">ПОМОГИ СИСТЕМЕ</p>
-            <a href="https://t.me/testtest228testbot" class="bot-link">ВØЙТИ</a>
+            <a href="https://t.me/testtest228testbot" class="bot-link action-text blink white">ВØЙТИ</a>
         </div>
     </div>
 
     <div id="modal-instr" class="modal-overlay" onclick="closeByOverlay(event, 'modal-instr')">
         <div class="modal-content">
-            <h2 class="red">ИНСTPУКЦИЯ</h2>
-            <div class="steps">
+            <h2 class="red strict-header">ИНСTPУКЦИЯ</h2>
+            <div class="steps-list">
                 <p>1. СКАН QR</p>
                 <p>2. ЖМИ /START</p>
                 <p>3. ШЕРИ ССЫЛКУ</p>
             </div>
+            
+            <div class="reward-zone">
+                <p class="instr-reward blink red">НАГРАДА:</p>
+                <p>+1 К КАРМЕ // ДОСТУП К ДРОПУ</p>
+            </div>
+            
             <button class="back-btn" onclick="openMainModal()">НАЗАД</button>
         </div>
     </div>
