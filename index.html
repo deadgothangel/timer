@@ -3,29 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM FAILURE</title>
+    <title>SYSTEM_FAILURE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hacking-mode">
+    <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
 
-    <h1 style="letter-spacing: 10px; opacity: 0.7;">ERROR_404</h1>
-    
-    <div id="timer">00:00:00:00</div>
-    
-    <button id="what-happened-btn" onclick="openModal()">ЧТО СЛУЧИЛОСЬ?</button>
+    <div class="marquee">
+        <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
+    </div>
+
+    <div class="container">
+        <h1 class="error-title">ERROR_404</h1>
+        
+        <div id="timer">00:00:00:00</div>
+        
+        <button id="what-happened-btn" onclick="openModal()">ЧТО СЛУЧИЛОСЬ?</button>
+    </div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <h2 style="color: #f00;">ВЫБØP ЗΔ ВΔМИ</h2>
+            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
             <p>СИСТЕМА ТPЕБУЕТ ОБНØВЛЕНИЯ.</p>
             <p class="blink">ПPИВЕДИ ДPУГΔ — ПØЛУЧИ ДØСТУП.</p>
             <br>
-            <a href="https://t.me/твой_бот" style="color: #fff; text-decoration: underline;">ВØЙТИ В СИСTЕМУ</a>
+            <a href="https://t.me/testtest228testbot" class="bot-link">ВØЙТИ В СИСTЕМУ</a>
             <br><br>
-            <button onclick="closeModal()" style="background: none; color: #555; border: none; cursor:pointer;">ЗΔKPЫTЬ</button>
+            <button onclick="closeModal()" class="close-btn">ЗΔKPЫTЬ</button>
         </div>
+    </div>
+
+    <div class="footer-text">
+        <p>DEADGOTHANGEL // ИСХØД // 2026</p>
     </div>
 
     <script src="script.js"></script>
 </body>
-</html>
