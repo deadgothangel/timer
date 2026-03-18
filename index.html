@@ -7,29 +7,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hacking-mode">
+    <div class="bg-layer"></div>
     <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
     
+    <div id="mute-btn" onclick="toggleMute()">
+        <svg id="spk-icon" width="30" height="30" viewBox="0 0 24 24" fill="red">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+    </div>
+
     <div class="marquee">
         <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
     </div>
 
     <main class="container">
         <div id="nickname">DEADGOTHANGEL — <span id="glitch-chars">?????</span></div>
-        
         <div id="timer">00:00:00:00</div>
-        
-        <button id="main-btn" onclick="openModal()">ЧТО СЛУЧИЛОСЬ?</button>
+        <button id="main-btn" onclick="openMainModal()">ЧТО СЛУЧИЛОСЬ?</button>
     </main>
 
-    <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+    <div id="modal-main" class="modal-overlay" onclick="closeByOverlay(event, 'modal-main')">
         <div class="modal-content">
             <h2>ВЫБØP ЗΔ ВΔМИ</h2>
             <div class="qr-box">
                 <img src="qr_bot.png" alt="QR" class="qr-img">
             </div>
             <p class="blink red">СИСТЕМА ЗАХВАЧЕНА</p>
+            <p class="instr-link" onclick="openInstr()">ПОМОГИ СИСТЕМЕ</p>
             <a href="https://t.me/testtest228testbot" class="bot-link">ВØЙТИ</a>
-            <p class="close-hint">КЛИКНИ МИМО ЧТОБЫ ЗАКРЫТЬ</p>
+        </div>
+    </div>
+
+    <div id="modal-instr" class="modal-overlay" onclick="closeByOverlay(event, 'modal-instr')">
+        <div class="modal-content">
+            <h2 class="red">ИНСTPУКЦИЯ</h2>
+            <div class="steps">
+                <p>1. СКАН QR</p>
+                <p>2. ЖМИ /START</p>
+                <p>3. ШЕРИ ССЫЛКУ</p>
+            </div>
+            <button class="back-btn" onclick="openMainModal()">НАЗАД</button>
         </div>
     </div>
 
