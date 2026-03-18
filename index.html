@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hacking-mode">
-    <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
+    <div id="audio-panel">
+        <svg id="speaker-icon" width="40" height="40" viewBox="0 0 24 24" fill="#555" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11.5 6C9.52 6 7.82 7.37 7.23 9.27L9.2 9.77C9.58 8.7 10.45 8 11.5 8C12.88 8 14 9.12 14 10.5C14 11.88 12.88 13 11.5 13H11V15H11.5C13.98 15 16 12.98 16 10.5C16 8.02 13.98 6 11.5 6ZM10 17H13V19H10V17Z"/>
+        </svg>
+        <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
+    </div>
 
     <div class="bg-overlay"></div>
 
@@ -16,27 +21,51 @@
     </div>
 
     <div class="container">
-        <h1 class="error-title">ERROR_404</h1>
+        <h1 class="error-title glitch" data-text="DEADGOTHANGEL — ?????">
+            D<span class="glitch-char">?</span>ADGOTHANG<span class="glitch-char">?</span>L — <span class="glitch-char">?????</span>
+        </h1>
         
         <div id="timer">00:00:00:00</div>
         
-        <button id="what-happened-btn" onclick="openModal()">ЧТО СЛУЧИЛОСЬ?</button>
+        <button id="what-happened-btn" onclick="openMainModal()">ЧТО СЛУЧИЛОСЬ?</button>
     </div>
 
-    <div id="modal" class="modal">
+    <div id="main-modal" class="modal">
         <div class="modal-content">
-            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
+            <span class="close-btn-top" onclick="closeAllModals()">&times;</span>
+            <h2 style="font-size: 1.5rem; letter-spacing: 5px;">ВЫБØP ЗΔ ВΔМИ</h2>
             <p>СИСТЕМА ТPЕБУЕТ ОБНØВЛЕНИЯ.</p>
-            <p class="blink">ПPИВЕДИ ДPУГΔ — ПØЛУЧИ ДØСТУП.</p>
             
-            <div class="qr-container">
-                <img src="qr_bot.png" alt="QR_CODE" class="qr-image">
-            </div>
+            <div class="qr-container-embedded">
+                <img src="qr_bot.png" alt="QR_CODE" class="qr-image-embedded">
+                <div class="qr-scan-line"></div> </div>
 
+            <p class="blink red">ОБЪЕKT_NØ_7ΔKBΔЧЕН</p>
             <br>
-            <a href="https://t.me/testtest228testbot" class="bot-link">ВØЙТИ В СИСTЕМУ</a>
+            
+            <p class="action-text blink red" onclick="openInstrModal()">ПОМОГИ СИСТЕМЕ</p>
+            
+            <br>
+            <a href="https://t.me/testtest228testbot" class="bot-link action-text blink white">ВØЙТИ В СИСTЕМУ</a>
             <br><br>
-            <button onclick="closeModal()" class="close-btn">ЗΔKPЫTЬ</button>
+            <button onclick="closeAllModals()" class="close-btn-bottom">ЗΔKPЫTЬ</button>
+        </div>
+    </div>
+
+    <div id="instr-modal" class="modal">
+        <div class="modal-content instr-content">
+            <span class="close-btn-top" onclick="openMainModal()">&larr; НАЗАД</span>
+            <h2 style="color: #f00;">ИНСTPУКЦИЯ: ИСХØД</h2>
+            
+            <div class="instr-steps">
+                <p>1. <span class="step-num">ШАГ 1:</span> Сканируй QR-код.</p>
+                <p>2. <span class="step-num">ШАГ 2:</span> Нажми "/start".</p>
+                <p>3. <span class="step-num">ШАГ 3:</span> В «МØЁ ДØCЬE» найди ссылку.</p>
+                <p>4. <span class="step-num">ШАГ 4:</span> Скинь её объекту.</p>
+            </div>
+            
+            <p class="instr-reward blink red">ПØØЩPЕНИЕ СИСTEMЫ:</p>
+            <p>1 ПPИГЛΔШЁННЫЙ = +1 К КΔPМЕ // ДØСТУП К ДPØПУ</p>
         </div>
     </div>
 
