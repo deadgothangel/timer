@@ -2,54 +2,39 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEADGOTHANGEL // TIMER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEADGOTHANGEL // ИСХØД</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background-layer"></div>
+<body class="hacking-mode">
+    <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
     
-    <audio id="bg-audio" src="Project_222.mp3" loop></audio>
-
-    <div class="ui-wrapper">
-        <div class="top-bar">
-            <div class="marquee">
-                <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
-            </div>
-            <div id="sound-btn" onclick="toggleSound()">
-                <svg id="spk-icon" viewBox="0 0 24 24" width="28" height="28" fill="red">
-                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                </svg>
-            </div>
-        </div>
-
-        <main class="content">
-            <h1 id="glitch-nick">DEADGOTHANGEL</h1>
-            
-            <div id="timer-display">00:00:00:00</div>
-            
-            <button class="trigger-btn" onclick="openMod()">ЧТО СЛУЧИЛОСЬ?</button>
-        </main>
-
-        <footer class="bottom-footer">
-            DEADGOTHANGEL // ИСХØД // 2026
-        </footer>
+    <div class="marquee">
+        <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
     </div>
 
-    <div id="modal-overlay" class="modal" onclick="closeMod(event)">
-        <div class="modal-box">
-            <h2 class="red">ВЫБØP ЗΔ ВΔМИ</h2>
-            <div class="qr-container">
-                <img src="qr_bot.png" alt="QR" class="qr-code">
-                <div class="scan-effect"></div>
+    <main class="container">
+        <div id="nickname">DEADGOTHANGEL — <span id="glitch-chars">?????</span></div>
+        
+        <div id="timer">00:00:00:00</div>
+        
+        <button id="main-btn" onclick="openModal()">ЧТО СЛУЧИЛОСЬ?</button>
+    </main>
+
+    <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content">
+            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
+            <div class="qr-box">
+                <img src="qr_bot.png" alt="QR" class="qr-img">
             </div>
             <p class="blink red">СИСТЕМА ЗАХВАЧЕНА</p>
-            <p class="link" onclick="openInstr()">ПОМОГИ СИСТЕМЕ</p>
-            <a href="https://t.me/testtest228testbot" class="btn-link">ВØЙТИ</a>
-            <p class="close-btn" onclick="forceClose()">ЗАКРЫТЬ</p>
+            <a href="https://t.me/testtest228testbot" class="bot-link">ВØЙТИ</a>
+            <p class="close-hint">КЛИКНИ МИМО ЧТОБЫ ЗАКРЫТЬ</p>
         </div>
     </div>
-    
+
+    <div class="footer">DEADGOTHANGEL // ИСХØД // 2026</div>
+
     <script src="script.js"></script>
 </body>
 </html>
