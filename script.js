@@ -2,11 +2,16 @@ const timerDisp = document.getElementById('timer');
 const glitchDisp = document.getElementById('glitch-chars');
 const audio = document.getElementById('bg-audio');
 
-// 1. УЛЬТРА-ТАЙМЕР
+// 1. УЛЬТРА-ТАЙМЕР (Бешеный бег)
 setInterval(() => {
-    const time = Date.now().toString();
-    timerDisp.innerText = `${time.slice(-8,-6)}:${time.slice(-6,-4)}:${time.slice(-4,-2)}:${time.slice(-2)}`;
-}, 10);
+    // Получаем текущее время в миллисекундах и берем последние 2 цифры
+    let now = Date.now().toString();
+    let msGlitch = now.slice(-2);
+    let seconds = now.slice(-4, -2);
+    
+    // Мы просто заставляем цифры бежать, имитируя отсчет
+    timerDisp.innerText = `00:00:${seconds}:${msGlitch}`;
+}, 10); // Частота обновления 10мс для эффекта глитча
 
 // 2. ГЛИТЧ НИКА
 const chars = "ΔΣΦΨΩ777X?#@";
@@ -25,6 +30,8 @@ function toggleMute() {
 function openMainModal() {
     document.getElementById('modal-instr').style.display = 'none';
     document.getElementById('modal-main').style.display = 'flex';
+    // Попытка запустить музыку при клике (обход блоков браузера)
+    audio.play().catch(e => console.log("Audio play blocked"));
 }
 
 function openInstr() {
