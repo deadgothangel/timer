@@ -1,166 +1,36 @@
-/* Сброс и база — !!! БЕЗ ФОНА !!! */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; width: 100%; margin: 0; padding: 0; background: #000; overflow: hidden; }
-body {
-    font-family: 'Courier New', monospace;
-    display: flex; flex-direction: column; align-items: center;
-    color: #fff; position: relative;
-}
+html, body { height: 100%; width: 100%; margin: 0; padding: 0; background: #000; overflow: hidden; font-family: 'Courier New', monospace; color: #fff; }
 
-/* !!! ИСПРАВЛЕННЫЙ ЧБ ФОН — В ОТДЕЛЬНОМ СЛОЕ !!! */
 .bg-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    
-    /* Твой фон */
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: url('background.jpg') no-repeat center center;
-    background-size: cover;
-    
-    /* Делаем ЧБ только фон */
-    filter: grayscale(1) contrast(1.1) brightness(0.6);
-    
-    /* Убираем фон под контент */
-    z-index: -1; 
+    background-size: cover; filter: grayscale(1) contrast(1.2) brightness(0.5);
+    z-index: -1;
 }
 
-/* Весь остальной контент — он будет цветным */
-.container, .modal-content, .marquee, .footer-text, .app-container {
-    filter: grayscale(0%);
-    z-index: 10;
-}
+.app-container { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 10; }
+#timer { font-size: 14vw; font-weight: bold; text-shadow: 0 0 20px #f00; margin-bottom: 30px; }
+#nickname { font-size: 14px; letter-spacing: 3px; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+#main-btn { background: #f00; color: #fff; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
 
-/* Мобильный контейнер 9:16 */
-.app-container {
-    flex: 1; display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    width: 100%; text-align: center;
-}
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+.modal-content { width: 85%; background: #000; border: 1px solid #f00; padding: 25px; text-align: center; position: relative; }
 
-/* Динамик сверху */
-#mute-toggle {
-    position: absolute; top: 60px; right: 20px; z-index: 100;
-    padding: 10px; cursor: pointer;
-}
-
-/* Бегущая строка */
-.marquee {
-    position: absolute; top: 0; width: 100%;
-    background: rgba(255,0,0,0.1); padding: 10px 0;
-    overflow: hidden; white-space: nowrap; border-bottom: 1px solid rgba(255,0,0,0.2);
-}
-
-.marquee span {
-    display: inline-block; animation: scroll 15s linear infinite;
-    color: #f00; font-weight: bold; font-size: 14px;
-}
-
-@keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-#nickname {
-    font-size: 14px; letter-spacing: 3px; color: #888;
-    margin-bottom: 5px; text-transform: uppercase;
-}
-
-#glitch-chars {
-    animation: charGlitch 0.2s infinite steps(2);
-    color: #f00;
-}
-
-@keyframes charGlitch {
-    0% { opacity: 0; }
-    50% { opacity: 1; color: #fff; }
-    100% { opacity: 0; color: #f00; }
-}
-
-#timer {
-    font-size: 14vw; font-weight: bold; color: #fff;
-    text-shadow: 0 0 20px #f00; margin-bottom: 30px;
-}
-
-#main-btn {
-    background: #f00; color: #fff; border: none;
-    padding: 15px 30px; font-weight: bold; cursor: pointer;
-    font-size: 16px; text-transform: uppercase;
-}
-
-/* Модалки */
-.modal {
-    display: none; position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-    z-index: 1000; justify-content: center; align-items: center;
-}
-
-.modal-content {
-    width: 85%; background: #000; border: 1px solid #f00;
-    padding: 25px; text-align: center;
-    box-shadow: 0 0 30px rgba(255,0,0,0.3);
-    position: relative;
-}
-
-/* Стрелки выхода */
-.close-btn-top {
-    position: absolute;
-    top: 10px; left: 15px;
-    color: #444; font-size: 1rem; cursor: pointer;
-    letter-spacing: 2px;
-}
-
-.close-btn-top:hover { color: #f00; }
-
-/* Статус теперь сверху */
-.status-text { text-transform: uppercase; font-weight: bold; margin-bottom: 15px; }
-
-/* QR без фона */
-.qr-box {
-    margin: 20px auto; width: 150px; height: 150px;
-    border: 1px solid #f00; position: relative; overflow: hidden;
-}
-
-.qr-img {
-    width: 100%; height: 100%;
-    filter: invert(1) grayscale(1) brightness(1.5) contrast(1.2) sepia(1) hue-rotate(-50deg) saturate(10);
-}
-
-.scan-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-    background: #f00; animation: scan 2s linear infinite;
-}
-
+.close-btn-top { position: absolute; top: 10px; left: 15px; color: #444; font-size: 0.8rem; cursor: pointer; }
+.qr-box { margin: 15px auto; width: 150px; height: 150px; border: 1px solid #f00; position: relative; overflow: hidden; }
+.qr-img { width: 100%; height: 100%; filter: invert(1); }
+.scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #f00; animation: scan 2s linear infinite; }
 @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-.action-link { text-decoration: underline; color: #fff; margin: 20px 0; cursor: pointer; }
+.bot-btn-static { display: block; color: #f00; font-weight: bold; text-decoration: none; margin-top: 15px; font-size: 1.2rem; padding: 10px; border: 1px solid #f00; }
+.reward-zone { border-top: 1px solid #333; padding-top: 15px; margin-top: 15px; }
+.steps-list { text-align: left; display: inline-block; margin: 15px 0; font-size: 13px; }
+.marquee { position: absolute; top: 0; width: 100%; background: rgba(255,0,0,0.1); padding: 10px 0; overflow: hidden; white-space: nowrap; z-index: 100; }
+.marquee span { display: inline-block; animation: scroll 15s linear infinite; color: #f00; }
+@keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-/* КНОПКА ВОЙТИ ФИКСИРОВАННАЯ (Красная, не мигает) */
-.bot-btn-static {
-    display: block;
-    color: #f00;
-    font-weight: bold;
-    text-decoration: none;
-    margin-top: 15px;
-    font-size: 1.2rem;
-    padding: 10px 0;
-    border: 1px solid transparent;
-}
-
-.bot-btn-static:hover {
-    border: 1px solid #f00;
-    background-color: rgba(255, 0, 0, 0.05);
-}
-
-.strict-header { letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px;}
-
-/* Стили для инструкции и награды */
-.steps-list { text-align: left; max-width: 250px; margin: 0 auto 20px auto; }
-.steps-list p { margin: 10px 0; font-size: 13px;}
-
-.reward-zone { border-top: 1px solid #333; padding-top: 15px; margin-top: 15px;}
-.instr-reward { text-transform: uppercase; font-weight: bold; font-size: 14px;}
-.reward-zone p { font-size: 12px; margin: 5px 0; color: #888;}
-
-.back-btn { font-family: 'Courier New', monospace; background: #333; color: #fff; border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer;}
-.close-text { margin-top: 25px; font-size: 11px; color: #333; cursor: pointer; text-transform: uppercase; }
-
-.red { color: #f00; }
-.blink { animation: bl 0.8s infinite; }
 @keyframes bl { 50% { opacity: 0; } }
-
-.footer { position: absolute; bottom: 15px; font-size: 10px; color: #222; letter-spacing: 3px; }
+.blink { animation: bl 0.8s infinite; }
+.red { color: #f00; }
+#mute-toggle { position: absolute; top: 60px; right: 20px; z-index: 100; cursor: pointer; }
+.footer { position: absolute; bottom: 15px; font-size: 10px; color: #222; width: 100%; text-align: center; }
