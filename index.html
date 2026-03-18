@@ -3,59 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEADGOTHANGEL // ИСХØД</title>
+    <title>SYSTEM_FAILURE // DEADGOTHANGEL</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hacking-mode">
+    <div class="bg-overlay"></div>
     <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
 
-    <div class="bg-overlay"></div>
-
     <div id="mute-toggle" onclick="toggleMute()">
-        <svg id="speaker-icon" width="30" height="30" viewBox="0 0 24 24" fill="red">
+        <svg id="speaker-icon" width="30" height="30" viewBox="0 0 24 24" fill="#555">
             <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
         </svg>
     </div>
 
-    <div class="marquee">
-        <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB</span>
+    <div class="marquee-top">
+        <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
     </div>
 
     <main class="app-container">
-        <div id="nickname">DEADGOTHANGEL — <span id="glitch-chars">?????</span></div>
+        <div id="glitch-title" class="error-title">DEADGOTHANGEL — ?????</div>
         
         <div id="timer">00:00:00:00</div>
         
-        <button id="main-btn" onclick="openModal('main-modal')">ЧТО СЛУЧИЛОСЬ?</button>
-    </main>
+        <button id="what-happened-btn" onclick="openMainModal()">ЧТО СЛУЧИЛОСЬ?</button>
+    </div>
 
     <div id="main-modal" class="modal" onclick="closeModal(event, 'main-modal')">
         <div class="modal-content">
-            <h2 class="strict-header">ВЫБØP ЗΔ ВΔМИ</h2>
-            
+            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
             <div class="qr-box">
                 <img src="qr_bot.png" alt="QR" class="qr-img">
                 <div class="scan-line"></div>
             </div>
-
             <p class="blink red status-text">ОБЪЕKT_NØ_7ΔKBΔЧЕН</p>
-            <p class="action-link" onclick="openModal('instr-modal')">ПОМОГИ СИСТЕМЕ</p>
+            <p class="action-link" onclick="openInstrModal()">ПОМОГИ СИСТЕМЕ</p>
             <a href="https://t.me/testtest228testbot" class="bot-btn">ВØЙТИ В СИСTЕМУ</a>
-            <p class="close-text" onclick="closeModals()">ЗАКРЫТЬ</p>
+            <p class="close-text" onclick="closeAllModals()">ЗАКРЫТЬ</p>
         </div>
     </div>
 
     <div id="instr-modal" class="modal" onclick="closeModal(event, 'instr-modal')">
-        <div class="modal-content">
-            <h2 class="red strict-header">ИНСTPУКЦИЯ</h2>
-            <div class="steps">
+        <div class="modal-content instr-content">
+            <h2 class="red strict-header">ИНСTPУКЦИЯ: ИСХØД</h2>
+            <div class="steps-list">
                 <p>1. Скан QR</p>
-                <p>2. Жми /start</p>
+                <p>2. Жми "/start"</p>
                 <p>3. Копируй ссылку из Досье</p>
                 <p>4. Отправь объекту</p>
             </div>
-            <p class="reward blink">НАГРАДА: +1 К КАРМЕ</p>
-            <button class="back-btn" onclick="openModal('main-modal')">НАЗАД</button>
+            <p class="instr-reward blink red">НАГРАДА: +1 К КАРМЕ</p>
+            <button class="back-btn" onclick="openMainModal()">НАЗАД</button>
         </div>
     </div>
 
