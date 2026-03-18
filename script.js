@@ -1,36 +1,36 @@
-const timer = document.getElementById('timer');
-const audio = document.getElementById('bg-audio');
-const nick = document.getElementById('glitch-nick');
+const timerDisp = document.getElementById('timer');
+const audioObj = document.getElementById('bg-audio');
+const glitchTarget = document.getElementById('glitch-chars');
 
-// Таймер
+// Бешеный таймер
 setInterval(() => {
-    let mm = Math.floor(Math.random() * 60).toString().padStart(2, '0');
-    let ss = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+    let m = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+    let s = Math.floor(Math.random() * 60).toString().padStart(2, '0');
     let ms = Math.floor(Math.random() * 99).toString().padStart(2, '0');
-    timer.innerText = `00:${mm}:${ss}:${ms}`;
-}, 50);
+    timerDisp.innerText = `00:${m}:${s}:${ms}`;
+}, 45);
 
-// Глитч ника
-const chars = "ΔΣΦΨΩ777XX???";
+// Глитч ника (быстрая смена символов)
+const symbols = "ΔΣΦΨΩ777X?#@";
 setInterval(() => {
-    let raw = "DEADGOTHANGEL — ";
-    let glitch = "";
-    for(let i=0; i<5; i++) glitch += chars[Math.floor(Math.random()*chars.length)];
-    nick.innerText = raw + glitch;
-}, 100);
+    let out = "";
+    for(let i=0; i<5; i++) out += symbols[Math.floor(Math.random()*symbols.length)];
+    glitchTarget.innerText = out;
+}, 80);
 
-// Звук
-function toggleMute() {
-    audio.muted = !audio.muted;
-    document.getElementById('speaker-icon').style.fill = audio.muted ? "#222" : "red";
+// Управление звуком
+function toggleAudio() {
+    audioObj.muted = !audioObj.muted;
+    document.getElementById('speaker-icon').style.fill = audioObj.muted ? "#222" : "#f00";
 }
 
-// Окна
+// Модалки
 function openModal(id) {
-    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    closeModals();
     document.getElementById(id).style.display = 'flex';
+    audioObj.play().catch(() => {}); // Автоплей при взаимодействии
 }
 
-function closeModal(e, id) {
-    if(e.target.className === 'modal') document.getElementById(id).style.display = 'none';
+function closeModals() {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
 }
