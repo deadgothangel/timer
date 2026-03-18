@@ -1,4 +1,4 @@
-/* Сброс и база */
+/* Сброс и база — !!! БЕЗ ФОНА !!! */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { height: 100%; width: 100%; margin: 0; padding: 0; background: #000; overflow: hidden; }
 body {
@@ -7,20 +7,32 @@ body {
     color: #fff; position: relative;
 }
 
-/* !!! ИСПРАВЛЕННЫЙ ЧБ ФОН !!! */
+/* !!! ИСПРАВЛЕННЫЙ ЧБ ФОН — В ОТДЕЛЬНОМ СЛОЕ !!! */
 .bg-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    
+    /* Твой фон */
     background: url('background.jpg') no-repeat center center;
     background-size: cover;
+    
+    /* Делаем ЧБ только фон */
     filter: grayscale(1) contrast(1.1) brightness(0.6);
-    z-index: -1; /* Убрали под контент */
+    
+    /* Убираем фон под контент */
+    z-index: -1; 
+}
+
+/* Весь остальной контент — он будет цветным */
+.container, .modal-content, .marquee, .footer-text, .app-container {
+    filter: grayscale(0%);
+    z-index: 10;
 }
 
 /* Мобильный контейнер 9:16 */
 .app-container {
     flex: 1; display: flex; flex-direction: column;
     justify-content: center; align-items: center;
-    z-index: 10; width: 100%; text-align: center;
+    width: 100%; text-align: center;
 }
 
 /* Динамик сверху */
@@ -117,7 +129,7 @@ body {
 
 .action-link { text-decoration: underline; color: #fff; margin: 20px 0; cursor: pointer; }
 
-/* !!! КНОПКА ВОЙТИ ФИКСИРОВАННАЯ (Красная, не мигает) !!! */
+/* КНОПКА ВОЙТИ ФИКСИРОВАННАЯ (Красная, не мигает) */
 .bot-btn-static {
     display: block;
     color: #f00;
