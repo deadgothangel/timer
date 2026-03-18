@@ -1,7 +1,5 @@
+/* Основные стили страницы — без фоновой картинки! */
 body {
-    /* Твой фон */
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
     margin: 0;
     height: 100vh;
     display: flex;
@@ -10,13 +8,27 @@ body {
     overflow: hidden;
     font-family: 'Courier New', Courier, monospace;
     color: #fff;
-    /* Эффект ЧБ и контраста для всей страницы */
-    filter: grayscale(1) contrast(1.2) brightness(0.8);
+    background-color: #000; /* Резервный черный фон */
 }
 
-/* Отменяем ЧБ для элементов интерфейса, чтобы красный был ярким */
+/* !!! ВОТ ЭТОТ БЛОК ДЛЯ ЧБ ФОНА !!! */
+.bg-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    
+    /* Твой фон */
+    background: url('background.jpg') no-repeat center center;
+    background-size: cover;
+    
+    /* Делаем ЧБ только фон */
+    filter: grayscale(1) contrast(1.1) brightness(0.6);
+    z-index: -1; /* Убираем фон под контент */
+}
+
+/* Весь остальной контент — теперь он будет цветным по умолчанию */
 .container, .modal-content, .marquee, .footer-text {
-    filter: grayscale(0) contrast(1) brightness(1);
+    filter: grayscale(0%);
+    z-index: 10;
 }
 
 /* Красное мерцание (эффект тревоги) */
@@ -26,7 +38,7 @@ body {
 
 @keyframes alarm-pulse {
     0% { box-shadow: inset 0 0 50px #000; }
-    50% { box-shadow: inset 0 0 150px #600; background-color: rgba(50, 0, 0, 0.2); }
+    50% { box-shadow: inset 0 0 150px #600; background-color: rgba(50, 0, 0, 0.1); }
     100% { box-shadow: inset 0 0 50px #000; }
 }
 
@@ -54,7 +66,7 @@ body {
     100% { transform: translateX(-100%); }
 }
 
-.container { text-align: center; z-index: 10; }
+.container { text-align: center; }
 
 #timer {
     font-size: clamp(3rem, 12vw, 7rem);
