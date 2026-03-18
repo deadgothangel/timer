@@ -2,168 +2,30 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEADGOTHANGEL</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        * { box-sizing: border-box; }
-        
-        body { 
-            margin: 0; padding: 0; height: 100vh; 
-            background: #000 url('background.jpg') center center no-repeat; 
-            background-size: cover; 
-            background-attachment: fixed;
-            color: #fff; font-family: 'Courier New', monospace; 
-            overflow: hidden; text-transform: uppercase; 
-        }
-
-        .overlay-dark {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(3px);
-            z-index: 1;
-        }
-
-        @keyframes shake {
-            0% { transform: translate(0,0); }
-            10% { transform: translate(-4px, -2px); filter: hue-rotate(90deg) contrast(1.5); }
-            20% { transform: translate(3px, 5px); }
-            30% { transform: translate(-4px, 2px); }
-            100% { transform: translate(0,0); }
-        }
-        .glitch-active { animation: shake 0.25s infinite; }
-        
-        .marquee { position: absolute; width: 100%; background: rgba(0,0,0,0.8); border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 10px 0; font-size: 14px; letter-spacing: 5px; white-space: nowrap; overflow: hidden; z-index: 100; }
-        .top { top: 30px; }
-        .bottom { bottom: 70px; }
-        .marquee div { display: flex; width: 200%; animation: scroll 15s linear infinite; }
-        .marquee span { width: 50%; display: flex; justify-content: space-around; }
-        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        .timer-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; z-index: 50; }
-        
-        #display { font-size: 2.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-        .dots { padding-bottom: 10px; color: #fff; } 
-        .unit { font-size: 10px; margin-top: 5px; opacity: 0.5; letter-spacing: 2px; text-align: center; }
-
-        #music-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; cursor: pointer; transition: 0.8s; }
-        .play-btn { width: 70px; height: 70px; border: 2px solid #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 25px; animation: pulse 2s infinite; }
-        .play-btn::after { content: ''; display: block; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 20px solid #fff; margin-left: 8px; }
-        .tap-text { letter-spacing: 5px; font-size: 16px; font-weight: bold; animation: blink 1.5s infinite; }
-
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); } 70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        .bottom-bar { position: fixed; bottom: 20px; width: 90%; left: 5%; display: flex; justify-content: space-between; align-items: center; z-index: 200; font-size: 11px; letter-spacing: 1px; opacity: 0.8; }
-        
-        /* Кнопка звука — теперь на шрифтовых иконках */
-        #mute-btn { cursor: pointer; font-size: 22px; color: #fff; transition: transform 0.2s, opacity 0.2s; display: flex; align-items: center; }
-        #mute-btn:hover { opacity: 0.7; }
-        #mute-btn:active { transform: scale(0.9); }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM FAILURE</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="overlay-dark"></div>
+<body class="hacking-mode">
+
+    <h1 style="letter-spacing: 10px; opacity: 0.7;">ERROR_404</h1>
     
-    <div id="music-overlay">
-        <div class="play-btn"></div>
-        <div class="tap-text">ТЫ УВЕРЕН?</div>
-    </div>
+    <div id="timer">00:00:00:00</div>
+    
+    <button id="what-happened-btn" onclick="openModal()">ЧТО СЛУЧИЛОСЬ?</button>
 
-    <div class="marquee top">
-        <div>
-            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
-            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: #f00;">ВЫБØP ЗΔ ВΔМИ</h2>
+            <p>СИСТЕМА ТPЕБУЕТ ОБНØВЛЕНИЯ.</p>
+            <p class="blink">ПPИВЕДИ ДPУГΔ — ПØЛУЧИ ДØСТУП.</p>
+            <br>
+            <a href="https://t.me/твой_бот" style="color: #fff; text-decoration: underline;">ВØЙТИ В СИСTЕМУ</a>
+            <br><br>
+            <button onclick="closeModal()" style="background: none; color: #555; border: none; cursor:pointer;">ЗΔKPЫTЬ</button>
         </div>
     </div>
 
-    <div class="timer-container">
-        <div id="status-text" style="font-size: 12px; letter-spacing: 8px; margin-bottom: 20px; color: #fff; font-weight: bold; opacity: 0.9;">JUDGMENT DAY</div>
-        <div id="display">
-            <div><span id="d">00</span><div class="unit">DAYS</div></div>
-            <div class="dots">:</div>
-            <div><span id="h">00</span><div class="unit">HOURS</div></div>
-            <div class="dots">:</div>
-            <div><span id="m">00</span><div class="unit">MIN</div></div>
-            <div class="dots">:</div>
-            <div><span id="s">00</span><div class="unit">SEC</div></div>
-        </div>
-    </div>
-
-    <div class="marquee bottom">
-        <div>
-            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
-            <span>DEADGOTHANGEL DEADGOTHANGEL DEADGOTHANGEL</span>
-        </div>
-    </div>
-
-    <div class="bottom-bar">
-        <div id="song-name">DEADGOTHANGEL — ???</div>
-        <div id="mute-btn">
-            <i id="mute-icon" class="bi bi-volume-up"></i>
-        </div>
-    </div>
-
-    <audio id="bgMusic" loop src="Project_222.mp3"></audio>
-
-    <script>
-        const musicOverlay = document.getElementById('music-overlay');
-        const bgMusic = document.getElementById('bgMusic');
-        const muteIcon = document.getElementById('mute-icon');
-        const muteBtn = document.getElementById('mute-btn');
-        
-        // 29 марта 00:00 по Москве (это 28 марта 21:00 UTC)
-        const targetDate = new Date(Date.UTC(2026, 2, 28, 21, 0, 0)).getTime();
-
-        function updateDisplay() {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
-
-            if (diff <= 0) {
-                document.getElementById('display').innerHTML = "00 : 00 : 00 : 00";
-                document.getElementById('status-text').innerText = "SYSTEM FAILURE";
-                document.body.classList.add('glitch-active');
-                return;
-            }
-
-            if (diff < 86400000) {
-                document.body.classList.add('glitch-active');
-                document.getElementById('status-text').innerText = "ERROR LOADING...";
-            }
-
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('d').innerText = d < 10 ? '0'+d : d;
-            document.getElementById('h').innerText = h < 10 ? '0'+h : h;
-            document.getElementById('m').innerText = m < 10 ? '0'+m : m;
-            document.getElementById('s').innerText = s < 10 ? '0'+s : s;
-        }
-
-        musicOverlay.addEventListener('click', () => {
-            bgMusic.play().catch(e => console.log("Audio fail"));
-            musicOverlay.style.opacity = '0';
-            setTimeout(() => musicOverlay.style.display = 'none', 800);
-            updateDisplay();
-            setInterval(updateDisplay, 1000);
-        });
-
-        muteBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            bgMusic.muted = !bgMusic.muted;
-            // Переключаем классы иконок Bootstrap
-            if (bgMusic.muted) {
-                muteIcon.classList.remove('bi-volume-up');
-                muteIcon.classList.add('bi-volume-mute');
-            } else {
-                muteIcon.classList.remove('bi-volume-mute');
-                muteIcon.classList.add('bi-volume-up');
-            }
-        });
-
-        updateDisplay();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
