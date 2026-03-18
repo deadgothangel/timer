@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEADGOTHANGEL // ИСХØД</title>
+    <title>SYSTEM FAILURE // DGA</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hacking-mode">
-    <div class="bg-layer"></div>
+    <div class="bg-overlay"></div>
     <audio src="Project_222.mp3" autoplay loop id="bg-audio"></audio>
     
-    <div id="mute-btn" onclick="toggleMute()">
-        <svg id="spk-icon" width="30" height="30" viewBox="0 0 24 24" fill="red">
+    <div id="mute-toggle" onclick="toggleMute()">
+        <svg id="speaker-icon" width="30" height="30" viewBox="0 0 24 24" fill="red">
             <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
         </svg>
     </div>
@@ -20,34 +20,48 @@
         <span>HUZZY B REVERN // MARCH 22 // BASE CLUB // HUZZY B REVERN // MARCH 22 // BASE CLUB // </span>
     </div>
 
-    <main class="container">
+    <main class="app-container">
         <div id="nickname">DEADGOTHANGEL — <span id="glitch-chars">?????</span></div>
+        
         <div id="timer">00:00:00:00</div>
-        <button id="main-btn" onclick="openMainModal()">ЧТО СЛУЧИЛОСЬ?</button>
+        
+        <button id="main-btn" onclick="openModal('main-modal')">ЧТО СЛУЧИЛОСЬ?</button>
     </main>
 
-    <div id="modal-main" class="modal-overlay" onclick="closeByOverlay(event, 'modal-main')">
+    <div id="main-modal" class="modal" onclick="closeModal(event, 'main-modal')">
         <div class="modal-content">
-            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
+            
+            <span class="close-btn-top" onclick="closeModals()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H19v-2z"/>
+                </svg>
+            </span>
+            
+            <h2 class="strict-header">ВЫБØP ЗΔ ВΔМИ</h2>
             
             <p class="blink red status-text">СИСТЕМА ЗАХВАЧЕНА</p>
             
             <div class="qr-box">
                 <img src="qr_bot.png" alt="QR" class="qr-img">
+                <div class="scan-line"></div>
             </div>
             
-            <p class="instr-link" onclick="openInstr()">ПОМОГИ СИСТЕМЕ</p>
-            <a href="https://t.me/testtest228testbot" class="bot-link action-text blink white">ВØЙТИ</a>
+            <p class="action-link" onclick="openModal('instr-modal')">ПОМОГИ СИСТЕМЕ</p>
+            
+            <a href="https://t.me/testtest228testbot" class="bot-btn bot-link-fixed">ВØЙТИ</a>
+            
+            <p class="close-text" onclick="closeModals()">ЗАКРЫТЬ</p>
         </div>
     </div>
 
-    <div id="modal-instr" class="modal-overlay" onclick="closeByOverlay(event, 'modal-instr')">
-        <div class="modal-content">
-            <h2 class="red strict-header">ИНСTPУКЦИЯ</h2>
+    <div id="instr-modal" class="modal" onclick="closeModal(event, 'instr-modal')">
+        <div class="modal-content instr-content">
+            <h2 class="red strict-header">ИНСTPУКЦИЯ: ИСХØД</h2>
             <div class="steps-list">
-                <p>1. СКАН QR</p>
-                <p>2. ЖМИ /START</p>
-                <p>3. ШЕРИ ССЫЛКУ</p>
+                <p>1. Скан QR</p>
+                <p>2. Жми "/start"</p>
+                <p>3. Копируй ссылку из Досье</p>
+                <p>4. Отправь объекту</p>
             </div>
             
             <div class="reward-zone">
@@ -55,7 +69,7 @@
                 <p>+1 К КАРМЕ // ДОСТУП К ДРОПУ</p>
             </div>
             
-            <button class="back-btn" onclick="openMainModal()">НАЗАД</button>
+            <button class="back-btn" onclick="openModal('main-modal')">НАЗАД</button>
         </div>
     </div>
 
