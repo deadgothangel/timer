@@ -37,3 +37,17 @@ function closeModals() {
 function closeModal(e, id) {
     if(e.target.className === 'modal') closeModals();
 }
+// Функция для подстановки реферал-ID в кнопку
+function setupReferralLink() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refId = urlParams.get('ref'); // Ищем ?ref= в адресе
+    const botLink = document.querySelector('.bot-btn-static');
+    
+    if (refId && botLink) {
+        // Меняем ссылку на глубокую (deep-link) для Telegram
+        botLink.href = `https://t.me/testtest228testbot?start=ref${refId}`;
+    }
+}
+
+// Запускаем проверку при загрузке
+window.addEventListener('load', setupReferralLink);
