@@ -1,52 +1,34 @@
-const timerElement = document.getElementById('timer');
+const timer = document.getElementById('timer-display');
+const nick = document.getElementById('glitch-nick');
 const audio = document.getElementById('bg-audio');
-const glitchNick = document.getElementById('glitch-title');
 
-// !!! БЕСКОНЕЧНЫЙ ТАЙМЕР !!!
+// 1. ТАЙМЕР (Бесконечный бег)
 setInterval(() => {
-    let now = Date.now().toString();
-    // Берем последние 2 цифры как миллисекунды для эффекта глюка
-    let msGlitch = now.slice(-2);
-    timerElement.innerText = `00:00:00:${msGlitch}`;
-}, 40); // Очень быстрое обновление
+    const now = Date.now().toString();
+    const ms = now.slice(-2);
+    const secs = (Math.floor(Date.now() / 1000) % 60).toString().padStart(2, '0');
+    // Мы просто заставляем цифры бежать, имитируя отсчет
+    timer.innerText = `00:00:${secs}:${ms}`;
+}, 30);
 
-// !!! ГЛИТЧ НИКА (Всего текста) !!!
-const gothChars = "ΔΣΦΨΩ777XX???DEADGOTHANGEL";
+// 2. ГЛИТЧ НИКА (Всего слова)
+const original = "DEADGOTHANGEL";
+const chars = "ΔΣΦΨΩ777X?#@";
 setInterval(() => {
-    let raw = "DEADGOTHANGEL — ";
-    let glitch = "";
-    for(let i=0; i<15; i++) glitch += gothChars[Math.floor(Math.random()*gothChars.length)];
-    // Вставляем глитч в ник
-    glitchNick.innerText = glitch;
-}, 80);
+    let result = "";
+    for(let i = 0; i < original.length; i++) {
+        // С шансом 30% заменяем букву на символ
+        result += Math.random() > 0.7 ? chars[Math.floor(Math.random()*chars.length)] : original[i];
+    }
+    nick.innerText = result;
+}, 100);
 
-// Mute/Unmute
-function toggleMute() {
-    audio.muted = !audio.muted;
-    document.getElementById('speaker-icon').style.fill = audio.muted ? "#222" : "red";
+// 3. ЗВУК И МОДАЛКИ
+function toggleSound() {
+    if (audio.paused) { audio.play(); document.getElementById('spk-icon').style.fill = "red"; }
+    else { audio.pause(); document.getElementById('spk-icon').style.fill = "#333"; }
 }
 
-// Окна
-const mainModal = document.getElementById('main-modal');
-const instrModal = document.getElementById('instr-modal');
-
-function openMainModal() {
-    closeAllModals();
-    mainModal.style.display = 'flex';
-    audio.play().catch(e => console.log("Play blocked")); // Автоплей
-}
-
-function openInstrModal() {
-    closeAllModals();
-    instrModal.style.display = 'flex';
-}
-
-function closeAllModals() {
-    mainModal.style.display = 'none';
-    instrModal.style.display = 'none';
-}
-
-// Закрытие по клику на фон
-function closeModal(e, id) {
-    if(e.target.id === id) document.getElementById(id).style.display = 'none';
-}
+function openMod() { document.getElementById('modal-overlay').style.display = 'flex'; }
+function forceClose() { document.getElementById('modal-overlay').style.display = 'none'; }
+function closeMod(e) { if(e.target.id === 'modal-overlay') forceClose(); }
