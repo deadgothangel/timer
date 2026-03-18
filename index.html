@@ -30,7 +30,7 @@
         <div class="modal-content">
             <div class="back-arrow" onclick="closeModals()">←</div>
             
-            <h2>ВЫБØP ЗΔ ВΔМИ</h2>
+            <h2 class="strict-header">ВЫБØP ЗΔ ВΔМИ</h2>
             <p class="blink red">СИСТЕМА ЗАХВАЧЕНА</p>
             
             <div class="qr-box">
@@ -39,7 +39,8 @@
             </div>
             
             <p class="action-link" onclick="openModal('instr-modal')">ПОМОГИ СИСТЕМЕ</p>
-            <a href="https://t.me/testtest228testbot" class="bot-btn">ВØЙТИ</a>
+            
+            <a href="https://t.me/testtest228testbot" class="bot-btn-static">ВØЙТИ</a>
             
             <p class="close-text" onclick="closeModals()">ЗАКРЫТЬ</p>
         </div>
@@ -48,13 +49,13 @@
     <div id="instr-modal" class="modal" onclick="closeModal(event, 'instr-modal')">
         <div class="modal-content">
             <div class="back-arrow" onclick="openModal('main-modal')">←</div>
-            <h2 class="red">ИНСTPУКЦИЯ</h2>
-            <div style="text-align: left; margin: 20px 0;">
+            <h2 class="red strict-header">ИНСTPУКЦИЯ</h2>
+            <div class="steps-list">
                 <p>1. СКАН QR</p>
                 <p>2. ЖМИ /START</p>
                 <p>3. ШЕРИ ССЫЛКУ</p>
             </div>
-            <button class="bot-btn" onclick="openModal('main-modal')">ПОНЯЛ</button>
+            <button class="bot-btn-static" onclick="openModal('main-modal')">ПОНЯЛ</button>
         </div>
     </div>
 
